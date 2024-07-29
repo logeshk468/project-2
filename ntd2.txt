@@ -1,0 +1,123 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Define the abstract class for a generic smart device
+abstract class SmartDevice {
+    protected String name;
+
+    public SmartDevice(String name) {
+        this.name = name;
+    }
+
+    public abstract void turnOn();
+    public abstract void turnOff();
+}
+
+// Define a Smart Light class
+class SmartLight extends SmartDevice {
+
+    public SmartLight(String name) {
+        super(name);
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println(name + " light is turned on.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println(name + " light is turned off.");
+    }
+}
+
+// Define a Smart Thermostat class
+class SmartThermostat extends SmartDevice {
+
+    public SmartThermostat(String name) {
+        super(name);
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println(name + " thermostat is turned on.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println(name + " thermostat is turned off.");
+    }
+
+    public void setTemperature(int temperature) {
+        System.out.println(name + " thermostat set to " + temperature + " degrees.");
+    }
+}
+
+// Define a Smart Door Lock class
+class SmartDoorLock extends SmartDevice {
+
+    public SmartDoorLock(String name) {
+        super(name);
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println(name + " door lock is locked.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println(name + " door lock is unlocked.");
+    }
+}
+
+// Define the main class to manage the smart home system
+public class SmartHomeSystem {
+    private List<SmartDevice> devices;
+
+    public SmartHomeSystem() {
+        devices = new ArrayList<>();
+    }
+
+    public void addDevice(SmartDevice device) {
+        devices.add(device);
+    }
+
+    public void turnAllOn() {
+        for (SmartDevice device : devices) {
+            device.turnOn();
+        }
+    }
+
+    public void turnAllOff() {
+        for (SmartDevice device : devices) {
+            device.turnOff();
+        }
+    }
+
+    public static void main(String[] args) {
+        // Initialize smart home system
+        SmartHomeSystem smartHomeSystem = new SmartHomeSystem();
+
+        // Initialize devices
+        SmartDevice livingRoomLight = new SmartLight("Living Room");
+        SmartDevice bedroomThermostat = new SmartThermostat("Bedroom");
+        SmartDevice frontDoorLock = new SmartDoorLock("Front Door");
+
+        // Add devices to the system
+        smartHomeSystem.addDevice(livingRoomLight);
+        smartHomeSystem.addDevice(bedroomThermostat);
+        smartHomeSystem.addDevice(frontDoorLock);
+
+        // Turn all devices on
+        System.out.println("Turning all devices on:");
+        smartHomeSystem.turnAllOn();
+
+        // Perform specific operations
+        ((SmartThermostat) bedroomThermostat).setTemperature(22);
+
+        // Turn all devices off
+        System.out.println("\nTurning all devices off:");
+        smartHomeSystem.turnAllOff();
+    }
+}
